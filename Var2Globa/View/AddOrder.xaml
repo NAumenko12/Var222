@@ -1,0 +1,71 @@
+﻿<UserControl x:Class="Var2Globa.View.AddOrder"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Var2Globa.View" 
+             xmlns:viewmodel="clr-namespace:Var2Globa.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:AddOrderViewModel}"
+             mc:Ignorable="d" Height="600" Width="970">
+    <UserControl.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Width" Value="100"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Background" Value="#FF123456"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="Margin" Value="2"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontSize" Value="12"/>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid Background="#FFA4A7A4"  Height="603" Width="985">
+        <Grid Margin="0,10,0,0" Height="593" VerticalAlignment="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="0*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="380"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <TextBox Text="ДОБАВЛЕНИЕ ЗАЯВКИ" Background="#FFA4A7A4"  HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Bold"   FontSize="25"   HorizontalAlignment="Center" Width="989" Margin="0,0,0,322" TextChanged="TextBox_TextChanged"/>
+
+            <StackPanel Orientation="Vertical" Margin="10,50,0,0" Height="541" VerticalAlignment="Top" Grid.RowSpan="2">
+                <TextBlock Text="Адрес помещения:" Margin="0,0,0,5"/>
+                <TextBox Text="{Binding АдресПомещения, UpdateSourceTrigger=PropertyChanged}" Width="200"/>
+
+                <TextBlock Text="Имя заявителя:" Margin="0,10,0,5"/>
+                <TextBox Text="{Binding ИмяЗаявителя, UpdateSourceTrigger=PropertyChanged}" Width="200"/>
+
+                <TextBlock Text="Телефон заявителя:" Margin="0,10,0,5"/>
+                <TextBox Text="{Binding ТелефонЗаявителя, UpdateSourceTrigger=PropertyChanged}" Width="200"/>
+
+                <TextBlock Text="Тип помещения:" Margin="0,10,0,5"/>
+                <ComboBox ItemsSource="{Binding ТипыПомещений}" DisplayMemberPath="Название" SelectedItem="{Binding ВыбранныйТипПомещения}" Width="200"/>
+
+                <TextBlock Text="Площадь помещения:" Margin="0,10,0,5"/>
+                <TextBox Text="{Binding ПлощадьПомещения, UpdateSourceTrigger=PropertyChanged}" Width="200"/>
+
+                <TextBlock Text="Тип уборки:" Margin="0,10,0,5"/>
+                <ComboBox ItemsSource="{Binding ТипыУборок}" DisplayMemberPath="Название" SelectedItem="{Binding ВыбранныйТипУборки}" Width="200"/>
+
+                <TextBlock Text="Дополнительные услуги:" Margin="0,10,0,5"/>
+                <ListView ItemsSource="{Binding ДополнительныеУслуги}" SelectedItem="{Binding ВыбраннаяДопУслуга}">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn DisplayMemberBinding="{Binding Название}" Header="Название" Width="150"/>
+                            <GridViewColumn DisplayMemberBinding="{Binding Стоимость}" Header="Стоимость" Width="100"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+
+                <Button Content="Добавить Заявку" Command="{Binding ДобавитьЗаявкуCommand}" Margin="0,10,0,0"/>
+            </StackPanel>
+        </Grid>
+    </Grid>
+
+
+</UserControl>

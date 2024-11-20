@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="c8fcfa217cc74c778592f07cff7ac915" Name="Diagram1">
+        <EntityTypeShape EntityType="Var22Model.sysdiagrams" Width="1.5" PointX="5.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Var22Model.Должность" Width="1.5" PointX="1.5" PointY="16.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Var22Model.Доп_услуги" Width="1.5" PointX="3" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Var22Model.Заказ" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="Var22Model.Клиент" Width="1.5" PointX="0.75" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Var22Model.Помещение" Width="1.5" PointX="0.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Var22Model.Состав_доп_услуги" Width="1.5" PointX="5.25" PointY="1.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Var22Model.Сотрудник" Width="1.5" PointX="0.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Var22Model.Тип_помещения" Width="1.5" PointX="1.5" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="Var22Model.Тип_уборки" Width="1.5" PointX="0.75" PointY="19.375" IsExpanded="true" />
+        <AssociationConnector Association="Var22Model.FK__Сотрудник__Должн__398D8EEE" ManuallyRouted="false" />
+        <AssociationConnector Association="Var22Model.FK__Состав_до__ID_до__4CA06362" ManuallyRouted="false" />
+        <AssociationConnector Association="Var22Model.FK__Заказ__Исполните__45F365D3" ManuallyRouted="false" />
+        <AssociationConnector Association="Var22Model.FK__Заказ__Клиент__5812160E" ManuallyRouted="false" />
+        <AssociationConnector Association="Var22Model.FK__Заказ__Клиент__59063A47" ManuallyRouted="false" />
+        <AssociationConnector Association="Var22Model.FK__Заказ__Помещение__46E78A0C" ManuallyRouted="false" />
+        <AssociationConnector Association="Var22Model.FK__Заказ__Тип_уборк__44FF419A" ManuallyRouted="false" />
+        <AssociationConnector Association="Var22Model.FK__Состав_до__ID_за__4BAC3F29" ManuallyRouted="false" />
+        <AssociationConnector Association="Var22Model.FK__Помещение__Тип_п__4222D4EF" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

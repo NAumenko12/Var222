@@ -1,0 +1,58 @@
+﻿<UserControl x:Class="Var2Globa.View.StatisticWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Var2Globa.View"
+             xmlns:viewmodel="clr-namespace:Var2Globa.ViewModel"
+             d:DataContext="{d:DesignInstance Type=viewmodel:StatViewModel}"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Width" Value="100"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Background" Value="#FF123456"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="Margin" Value="2"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontSize" Value="12"/>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid Background="#FFA4A7A4" Margin="54,46,-22,-26">
+        <Grid Margin="0,-78,0,25" HorizontalAlignment="Center" Width="1042">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="239*"/>
+                <ColumnDefinition Width="115*"/>
+                <ColumnDefinition Width="0*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="380"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <TextBox Text="ЗАВЕРШЕННЫЕ ЗАЯВКИ" Background="#FFA4A7A4"  HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Bold"   FontSize="25"   HorizontalAlignment="Center" Width="990" Margin="0,0,0,247" TextChanged="TextBox_TextChanged" Grid.ColumnSpan="2" Height="58" VerticalAlignment="Bottom"/>
+
+            <!-- Таблица завершенных заявок -->
+            <ListView x:Name="LWCompletedOrders" Margin="10,156,10,48" ItemsSource="{Binding ЗавершенныеЗаявки}" Grid.RowSpan="2" Grid.ColumnSpan="2">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn DisplayMemberBinding="{Binding ID_заказа}" Header="ID Заказа" Width="80"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Клиент1.имя}" Header="Имя заявителя" Width="120"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Клиент1.Телефон}" Header="Телефон заявителя" Width="120"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Помещение1.адрес}" Header="Адрес помещения" Width="150"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Тип_уборки1.Название}" Header="Тип уборки" Width="120"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Дата_исполнения}" Header="Дата исполнения" Width="120"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Статус_заказа}" Header="Статус заказа" Width="120"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Комментарий}" Header="Комментарий" Width="150"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+
+            <Button Content="Выйти" HorizontalAlignment="Left" Width="100" Background="IndianRed" Margin="26,107,0,10" Command="{Binding GoHomeNavigateCommand}" Grid.Row="1"/>
+        </Grid>
+    </Grid>
+</UserControl>

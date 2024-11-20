@@ -1,0 +1,664 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище Var22Model" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Должность">
+          <Key>
+            <PropertyRef Name="ID_должности" />
+          </Key>
+          <Property Name="ID_должности" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Название" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="Доп_услуги">
+          <Key>
+            <PropertyRef Name="ID_доп_услуги" />
+          </Key>
+          <Property Name="ID_доп_услуги" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Название" Type="nvarchar" MaxLength="200" />
+          <Property Name="Стоимость" Type="int" />
+          <Property Name="Единица" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="Заказ">
+          <Key>
+            <PropertyRef Name="ID_заказа" />
+          </Key>
+          <Property Name="ID_заказа" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Клиент" Type="int" />
+          <Property Name="Тип_уборки" Type="int" />
+          <Property Name="Дата_исполнения" Type="date" />
+          <Property Name="Исполнитель" Type="int" />
+          <Property Name="Помещение" Type="int" />
+          <Property Name="Статус_заказа" Type="nvarchar" MaxLength="255" />
+          <Property Name="Комментарий" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Клиент">
+          <Key>
+            <PropertyRef Name="ID_клиента" />
+          </Key>
+          <Property Name="ID_клиента" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="имя" Type="nvarchar" MaxLength="200" />
+          <Property Name="Телефон" Type="nvarchar" MaxLength="200" />
+          <Property Name="Персональная_скидка" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="Помещение">
+          <Key>
+            <PropertyRef Name="ID_помещение" />
+          </Key>
+          <Property Name="ID_помещение" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="адрес" Type="nvarchar" MaxLength="200" />
+          <Property Name="Площадь" Type="int" />
+          <Property Name="Тип_помещения" Type="int" />
+        </EntityType>
+        <EntityType Name="Состав_доп_услуги">
+          <Key>
+            <PropertyRef Name="id_состава" />
+          </Key>
+          <Property Name="id_состава" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_заказа" Type="int" />
+          <Property Name="ID_доп_услуги" Type="int" />
+        </EntityType>
+        <EntityType Name="Сотрудник">
+          <Key>
+            <PropertyRef Name="ID_сотрудника" />
+          </Key>
+          <Property Name="ID_сотрудника" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ФИО" Type="nvarchar" MaxLength="200" />
+          <Property Name="ИНН" Type="nvarchar" MaxLength="200" />
+          <Property Name="Паспорт" Type="nvarchar" MaxLength="200" />
+          <Property Name="Расчётный_счет" Type="nvarchar" MaxLength="200" />
+          <Property Name="Должность" Type="int" />
+          <Property Name="Логин" Type="nvarchar" MaxLength="255" />
+          <Property Name="Паролб" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Тип_помещения">
+          <Key>
+            <PropertyRef Name="ID_тип_помещения" />
+          </Key>
+          <Property Name="ID_тип_помещения" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="НАзвание" Type="nvarchar" MaxLength="200" />
+          <Property Name="Множитель" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="Тип_уборки">
+          <Key>
+            <PropertyRef Name="ID_тип" />
+          </Key>
+          <Property Name="ID_тип" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Название" Type="nvarchar" MaxLength="200" />
+          <Property Name="Стоимость" Type="int" />
+        </EntityType>
+        <Association Name="FK__Заказ__Исполните__45F365D3">
+          <End Role="Сотрудник" Type="Self.Сотрудник" Multiplicity="0..1" />
+          <End Role="Заказ" Type="Self.Заказ" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Сотрудник">
+              <PropertyRef Name="ID_сотрудника" />
+            </Principal>
+            <Dependent Role="Заказ">
+              <PropertyRef Name="Исполнитель" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Заказ__Клиент__5812160E">
+          <End Role="Клиент" Type="Self.Клиент" Multiplicity="0..1" />
+          <End Role="Заказ" Type="Self.Заказ" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Клиент">
+              <PropertyRef Name="ID_клиента" />
+            </Principal>
+            <Dependent Role="Заказ">
+              <PropertyRef Name="Клиент" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Заказ__Клиент__59063A47">
+          <End Role="Клиент" Type="Self.Клиент" Multiplicity="0..1" />
+          <End Role="Заказ" Type="Self.Заказ" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Клиент">
+              <PropertyRef Name="ID_клиента" />
+            </Principal>
+            <Dependent Role="Заказ">
+              <PropertyRef Name="Клиент" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Заказ__Помещение__46E78A0C">
+          <End Role="Помещение" Type="Self.Помещение" Multiplicity="0..1" />
+          <End Role="Заказ" Type="Self.Заказ" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Помещение">
+              <PropertyRef Name="ID_помещение" />
+            </Principal>
+            <Dependent Role="Заказ">
+              <PropertyRef Name="Помещение" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Заказ__Тип_уборк__44FF419A">
+          <End Role="Тип_уборки" Type="Self.Тип_уборки" Multiplicity="0..1" />
+          <End Role="Заказ" Type="Self.Заказ" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Тип_уборки">
+              <PropertyRef Name="ID_тип" />
+            </Principal>
+            <Dependent Role="Заказ">
+              <PropertyRef Name="Тип_уборки" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Помещение__Тип_п__4222D4EF">
+          <End Role="Тип_помещения" Type="Self.Тип_помещения" Multiplicity="0..1" />
+          <End Role="Помещение" Type="Self.Помещение" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Тип_помещения">
+              <PropertyRef Name="ID_тип_помещения" />
+            </Principal>
+            <Dependent Role="Помещение">
+              <PropertyRef Name="Тип_помещения" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Состав_до__ID_до__4CA06362">
+          <End Role="Доп_услуги" Type="Self.Доп_услуги" Multiplicity="0..1" />
+          <End Role="Состав_доп_услуги" Type="Self.Состав_доп_услуги" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Доп_услуги">
+              <PropertyRef Name="ID_доп_услуги" />
+            </Principal>
+            <Dependent Role="Состав_доп_услуги">
+              <PropertyRef Name="ID_доп_услуги" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Состав_до__ID_за__4BAC3F29">
+          <End Role="Заказ" Type="Self.Заказ" Multiplicity="0..1" />
+          <End Role="Состав_доп_услуги" Type="Self.Состав_доп_услуги" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Заказ">
+              <PropertyRef Name="ID_заказа" />
+            </Principal>
+            <Dependent Role="Состав_доп_услуги">
+              <PropertyRef Name="ID_заказа" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Сотрудник__Должн__398D8EEE">
+          <End Role="Должность" Type="Self.Должность" Multiplicity="0..1" />
+          <End Role="Сотрудник" Type="Self.Сотрудник" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Должность">
+              <PropertyRef Name="ID_должности" />
+            </Principal>
+            <Dependent Role="Сотрудник">
+              <PropertyRef Name="Должность" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище Var22ModelContainer">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Должность" EntityType="Self.Должность" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Доп_услуги" EntityType="Self.Доп_услуги" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Заказ" EntityType="Self.Заказ" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Клиент" EntityType="Self.Клиент" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Помещение" EntityType="Self.Помещение" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Состав_доп_услуги" EntityType="Self.Состав_доп_услуги" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Сотрудник" EntityType="Self.Сотрудник" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Тип_помещения" EntityType="Self.Тип_помещения" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Тип_уборки" EntityType="Self.Тип_уборки" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Заказ__Исполните__45F365D3" Association="Self.FK__Заказ__Исполните__45F365D3">
+            <End Role="Сотрудник" EntitySet="Сотрудник" />
+            <End Role="Заказ" EntitySet="Заказ" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Заказ__Клиент__5812160E" Association="Self.FK__Заказ__Клиент__5812160E">
+            <End Role="Клиент" EntitySet="Клиент" />
+            <End Role="Заказ" EntitySet="Заказ" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Заказ__Клиент__59063A47" Association="Self.FK__Заказ__Клиент__59063A47">
+            <End Role="Клиент" EntitySet="Клиент" />
+            <End Role="Заказ" EntitySet="Заказ" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Заказ__Помещение__46E78A0C" Association="Self.FK__Заказ__Помещение__46E78A0C">
+            <End Role="Помещение" EntitySet="Помещение" />
+            <End Role="Заказ" EntitySet="Заказ" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Заказ__Тип_уборк__44FF419A" Association="Self.FK__Заказ__Тип_уборк__44FF419A">
+            <End Role="Тип_уборки" EntitySet="Тип_уборки" />
+            <End Role="Заказ" EntitySet="Заказ" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Помещение__Тип_п__4222D4EF" Association="Self.FK__Помещение__Тип_п__4222D4EF">
+            <End Role="Тип_помещения" EntitySet="Тип_помещения" />
+            <End Role="Помещение" EntitySet="Помещение" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Состав_до__ID_до__4CA06362" Association="Self.FK__Состав_до__ID_до__4CA06362">
+            <End Role="Доп_услуги" EntitySet="Доп_услуги" />
+            <End Role="Состав_доп_услуги" EntitySet="Состав_доп_услуги" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Состав_до__ID_за__4BAC3F29" Association="Self.FK__Состав_до__ID_за__4BAC3F29">
+            <End Role="Заказ" EntitySet="Заказ" />
+            <End Role="Состав_доп_услуги" EntitySet="Состав_доп_услуги" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Сотрудник__Должн__398D8EEE" Association="Self.FK__Сотрудник__Должн__398D8EEE">
+            <End Role="Должность" EntitySet="Должность" />
+            <End Role="Сотрудник" EntitySet="Сотрудник" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Var22Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Должность">
+          <Key>
+            <PropertyRef Name="ID_должности" />
+          </Key>
+          <Property Name="ID_должности" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Название" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Сотрудник" Relationship="Self.FK__Сотрудник__Должн__398D8EEE" FromRole="Должность" ToRole="Сотрудник" />
+        </EntityType>
+        <EntityType Name="Доп_услуги">
+          <Key>
+            <PropertyRef Name="ID_доп_услуги" />
+          </Key>
+          <Property Name="ID_доп_услуги" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Название" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Стоимость" Type="Int32" />
+          <Property Name="Единица" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Состав_доп_услуги" Relationship="Self.FK__Состав_до__ID_до__4CA06362" FromRole="Доп_услуги" ToRole="Состав_доп_услуги" />
+        </EntityType>
+        <EntityType Name="Заказ">
+          <Key>
+            <PropertyRef Name="ID_заказа" />
+          </Key>
+          <Property Name="ID_заказа" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Клиент" Type="Int32" />
+          <Property Name="Тип_уборки" Type="Int32" />
+          <Property Name="Дата_исполнения" Type="DateTime" Precision="0" />
+          <Property Name="Исполнитель" Type="Int32" />
+          <Property Name="Помещение" Type="Int32" />
+          <Property Name="Статус_заказа" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Комментарий" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Сотрудник" Relationship="Self.FK__Заказ__Исполните__45F365D3" FromRole="Заказ" ToRole="Сотрудник" />
+          <NavigationProperty Name="Клиент1" Relationship="Self.FK__Заказ__Клиент__5812160E" FromRole="Заказ" ToRole="Клиент" />
+          <NavigationProperty Name="Клиент2" Relationship="Self.FK__Заказ__Клиент__59063A47" FromRole="Заказ" ToRole="Клиент" />
+          <NavigationProperty Name="Помещение1" Relationship="Self.FK__Заказ__Помещение__46E78A0C" FromRole="Заказ" ToRole="Помещение" />
+          <NavigationProperty Name="Тип_уборки1" Relationship="Self.FK__Заказ__Тип_уборк__44FF419A" FromRole="Заказ" ToRole="Тип_уборки" />
+          <NavigationProperty Name="Состав_доп_услуги" Relationship="Self.FK__Состав_до__ID_за__4BAC3F29" FromRole="Заказ" ToRole="Состав_доп_услуги" />
+        </EntityType>
+        <EntityType Name="Клиент">
+          <Key>
+            <PropertyRef Name="ID_клиента" />
+          </Key>
+          <Property Name="ID_клиента" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="имя" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Телефон" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Персональная_скидка" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Заказ" Relationship="Self.FK__Заказ__Клиент__5812160E" FromRole="Клиент" ToRole="Заказ" />
+          <NavigationProperty Name="Заказ1" Relationship="Self.FK__Заказ__Клиент__59063A47" FromRole="Клиент" ToRole="Заказ" />
+        </EntityType>
+        <EntityType Name="Помещение">
+          <Key>
+            <PropertyRef Name="ID_помещение" />
+          </Key>
+          <Property Name="ID_помещение" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="адрес" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Площадь" Type="Int32" />
+          <Property Name="Тип_помещения" Type="Int32" />
+          <NavigationProperty Name="Заказ" Relationship="Self.FK__Заказ__Помещение__46E78A0C" FromRole="Помещение" ToRole="Заказ" />
+          <NavigationProperty Name="Тип_помещения1" Relationship="Self.FK__Помещение__Тип_п__4222D4EF" FromRole="Помещение" ToRole="Тип_помещения" />
+        </EntityType>
+        <EntityType Name="Состав_доп_услуги">
+          <Key>
+            <PropertyRef Name="id_состава" />
+          </Key>
+          <Property Name="id_состава" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_заказа" Type="Int32" />
+          <Property Name="ID_доп_услуги" Type="Int32" />
+          <NavigationProperty Name="Доп_услуги" Relationship="Self.FK__Состав_до__ID_до__4CA06362" FromRole="Состав_доп_услуги" ToRole="Доп_услуги" />
+          <NavigationProperty Name="Заказ" Relationship="Self.FK__Состав_до__ID_за__4BAC3F29" FromRole="Состав_доп_услуги" ToRole="Заказ" />
+        </EntityType>
+        <EntityType Name="Сотрудник">
+          <Key>
+            <PropertyRef Name="ID_сотрудника" />
+          </Key>
+          <Property Name="ID_сотрудника" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ФИО" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="ИНН" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Паспорт" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Расчётный_счет" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Должность" Type="Int32" />
+          <Property Name="Логин" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Паролб" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Должность1" Relationship="Self.FK__Сотрудник__Должн__398D8EEE" FromRole="Сотрудник" ToRole="Должность" />
+          <NavigationProperty Name="Заказ" Relationship="Self.FK__Заказ__Исполните__45F365D3" FromRole="Сотрудник" ToRole="Заказ" />
+        </EntityType>
+        <EntityType Name="Тип_помещения">
+          <Key>
+            <PropertyRef Name="ID_тип_помещения" />
+          </Key>
+          <Property Name="ID_тип_помещения" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="НАзвание" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Множитель" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Помещение" Relationship="Self.FK__Помещение__Тип_п__4222D4EF" FromRole="Тип_помещения" ToRole="Помещение" />
+        </EntityType>
+        <EntityType Name="Тип_уборки">
+          <Key>
+            <PropertyRef Name="ID_тип" />
+          </Key>
+          <Property Name="ID_тип" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Название" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Стоимость" Type="Int32" />
+          <NavigationProperty Name="Заказ" Relationship="Self.FK__Заказ__Тип_уборк__44FF419A" FromRole="Тип_уборки" ToRole="Заказ" />
+        </EntityType>
+        <Association Name="FK__Сотрудник__Должн__398D8EEE">
+          <End Role="Должность" Type="Self.Должность" Multiplicity="0..1" />
+          <End Role="Сотрудник" Type="Self.Сотрудник" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Должность">
+              <PropertyRef Name="ID_должности" />
+            </Principal>
+            <Dependent Role="Сотрудник">
+              <PropertyRef Name="Должность" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Состав_до__ID_до__4CA06362">
+          <End Role="Доп_услуги" Type="Self.Доп_услуги" Multiplicity="0..1" />
+          <End Role="Состав_доп_услуги" Type="Self.Состав_доп_услуги" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Доп_услуги">
+              <PropertyRef Name="ID_доп_услуги" />
+            </Principal>
+            <Dependent Role="Состав_доп_услуги">
+              <PropertyRef Name="ID_доп_услуги" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Заказ__Исполните__45F365D3">
+          <End Role="Сотрудник" Type="Self.Сотрудник" Multiplicity="0..1" />
+          <End Role="Заказ" Type="Self.Заказ" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Сотрудник">
+              <PropertyRef Name="ID_сотрудника" />
+            </Principal>
+            <Dependent Role="Заказ">
+              <PropertyRef Name="Исполнитель" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Заказ__Клиент__5812160E">
+          <End Role="Клиент" Type="Self.Клиент" Multiplicity="0..1" />
+          <End Role="Заказ" Type="Self.Заказ" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Клиент">
+              <PropertyRef Name="ID_клиента" />
+            </Principal>
+            <Dependent Role="Заказ">
+              <PropertyRef Name="Клиент" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Заказ__Клиент__59063A47">
+          <End Role="Клиент" Type="Self.Клиент" Multiplicity="0..1" />
+          <End Role="Заказ" Type="Self.Заказ" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Клиент">
+              <PropertyRef Name="ID_клиента" />
+            </Principal>
+            <Dependent Role="Заказ">
+              <PropertyRef Name="Клиент" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Заказ__Помещение__46E78A0C">
+          <End Role="Помещение" Type="Self.Помещение" Multiplicity="0..1" />
+          <End Role="Заказ" Type="Self.Заказ" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Помещение">
+              <PropertyRef Name="ID_помещение" />
+            </Principal>
+            <Dependent Role="Заказ">
+              <PropertyRef Name="Помещение" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Заказ__Тип_уборк__44FF419A">
+          <End Role="Тип_уборки" Type="Self.Тип_уборки" Multiplicity="0..1" />
+          <End Role="Заказ" Type="Self.Заказ" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Тип_уборки">
+              <PropertyRef Name="ID_тип" />
+            </Principal>
+            <Dependent Role="Заказ">
+              <PropertyRef Name="Тип_уборки" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Состав_до__ID_за__4BAC3F29">
+          <End Role="Заказ" Type="Self.Заказ" Multiplicity="0..1" />
+          <End Role="Состав_доп_услуги" Type="Self.Состав_доп_услуги" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Заказ">
+              <PropertyRef Name="ID_заказа" />
+            </Principal>
+            <Dependent Role="Состав_доп_услуги">
+              <PropertyRef Name="ID_заказа" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Помещение__Тип_п__4222D4EF">
+          <End Role="Тип_помещения" Type="Self.Тип_помещения" Multiplicity="0..1" />
+          <End Role="Помещение" Type="Self.Помещение" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Тип_помещения">
+              <PropertyRef Name="ID_тип_помещения" />
+            </Principal>
+            <Dependent Role="Помещение">
+              <PropertyRef Name="Тип_помещения" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Var22Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="Должность" EntityType="Self.Должность" />
+          <EntitySet Name="Доп_услуги" EntityType="Self.Доп_услуги" />
+          <EntitySet Name="Заказ" EntityType="Self.Заказ" />
+          <EntitySet Name="Клиент" EntityType="Self.Клиент" />
+          <EntitySet Name="Помещение" EntityType="Self.Помещение" />
+          <EntitySet Name="Состав_доп_услуги" EntityType="Self.Состав_доп_услуги" />
+          <EntitySet Name="Сотрудник" EntityType="Self.Сотрудник" />
+          <EntitySet Name="Тип_помещения" EntityType="Self.Тип_помещения" />
+          <EntitySet Name="Тип_уборки" EntityType="Self.Тип_уборки" />
+          <AssociationSet Name="FK__Сотрудник__Должн__398D8EEE" Association="Self.FK__Сотрудник__Должн__398D8EEE">
+            <End Role="Должность" EntitySet="Должность" />
+            <End Role="Сотрудник" EntitySet="Сотрудник" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Состав_до__ID_до__4CA06362" Association="Self.FK__Состав_до__ID_до__4CA06362">
+            <End Role="Доп_услуги" EntitySet="Доп_услуги" />
+            <End Role="Состав_доп_услуги" EntitySet="Состав_доп_услуги" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Заказ__Исполните__45F365D3" Association="Self.FK__Заказ__Исполните__45F365D3">
+            <End Role="Сотрудник" EntitySet="Сотрудник" />
+            <End Role="Заказ" EntitySet="Заказ" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Заказ__Клиент__5812160E" Association="Self.FK__Заказ__Клиент__5812160E">
+            <End Role="Клиент" EntitySet="Клиент" />
+            <End Role="Заказ" EntitySet="Заказ" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Заказ__Клиент__59063A47" Association="Self.FK__Заказ__Клиент__59063A47">
+            <End Role="Клиент" EntitySet="Клиент" />
+            <End Role="Заказ" EntitySet="Заказ" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Заказ__Помещение__46E78A0C" Association="Self.FK__Заказ__Помещение__46E78A0C">
+            <End Role="Помещение" EntitySet="Помещение" />
+            <End Role="Заказ" EntitySet="Заказ" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Заказ__Тип_уборк__44FF419A" Association="Self.FK__Заказ__Тип_уборк__44FF419A">
+            <End Role="Тип_уборки" EntitySet="Тип_уборки" />
+            <End Role="Заказ" EntitySet="Заказ" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Состав_до__ID_за__4BAC3F29" Association="Self.FK__Состав_до__ID_за__4BAC3F29">
+            <End Role="Заказ" EntitySet="Заказ" />
+            <End Role="Состав_доп_услуги" EntitySet="Состав_доп_услуги" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Помещение__Тип_п__4222D4EF" Association="Self.FK__Помещение__Тип_п__4222D4EF">
+            <End Role="Тип_помещения" EntitySet="Тип_помещения" />
+            <End Role="Помещение" EntitySet="Помещение" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище Var22ModelContainer" CdmEntityContainer="Var22Entities">
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="Var22Model.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Должность">
+            <EntityTypeMapping TypeName="Var22Model.Должность">
+              <MappingFragment StoreEntitySet="Должность">
+                <ScalarProperty Name="ID_должности" ColumnName="ID_должности" />
+                <ScalarProperty Name="Название" ColumnName="Название" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Доп_услуги">
+            <EntityTypeMapping TypeName="Var22Model.Доп_услуги">
+              <MappingFragment StoreEntitySet="Доп_услуги">
+                <ScalarProperty Name="ID_доп_услуги" ColumnName="ID_доп_услуги" />
+                <ScalarProperty Name="Название" ColumnName="Название" />
+                <ScalarProperty Name="Стоимость" ColumnName="Стоимость" />
+                <ScalarProperty Name="Единица" ColumnName="Единица" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Заказ">
+            <EntityTypeMapping TypeName="Var22Model.Заказ">
+              <MappingFragment StoreEntitySet="Заказ">
+                <ScalarProperty Name="ID_заказа" ColumnName="ID_заказа" />
+                <ScalarProperty Name="Клиент" ColumnName="Клиент" />
+                <ScalarProperty Name="Тип_уборки" ColumnName="Тип_уборки" />
+                <ScalarProperty Name="Дата_исполнения" ColumnName="Дата_исполнения" />
+                <ScalarProperty Name="Исполнитель" ColumnName="Исполнитель" />
+                <ScalarProperty Name="Помещение" ColumnName="Помещение" />
+                <ScalarProperty Name="Статус_заказа" ColumnName="Статус_заказа" />
+                <ScalarProperty Name="Комментарий" ColumnName="Комментарий" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Клиент">
+            <EntityTypeMapping TypeName="Var22Model.Клиент">
+              <MappingFragment StoreEntitySet="Клиент">
+                <ScalarProperty Name="ID_клиента" ColumnName="ID_клиента" />
+                <ScalarProperty Name="имя" ColumnName="имя" />
+                <ScalarProperty Name="Телефон" ColumnName="Телефон" />
+                <ScalarProperty Name="Персональная_скидка" ColumnName="Персональная_скидка" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Помещение">
+            <EntityTypeMapping TypeName="Var22Model.Помещение">
+              <MappingFragment StoreEntitySet="Помещение">
+                <ScalarProperty Name="ID_помещение" ColumnName="ID_помещение" />
+                <ScalarProperty Name="адрес" ColumnName="адрес" />
+                <ScalarProperty Name="Площадь" ColumnName="Площадь" />
+                <ScalarProperty Name="Тип_помещения" ColumnName="Тип_помещения" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Состав_доп_услуги">
+            <EntityTypeMapping TypeName="Var22Model.Состав_доп_услуги">
+              <MappingFragment StoreEntitySet="Состав_доп_услуги">
+                <ScalarProperty Name="id_состава" ColumnName="id_состава" />
+                <ScalarProperty Name="ID_заказа" ColumnName="ID_заказа" />
+                <ScalarProperty Name="ID_доп_услуги" ColumnName="ID_доп_услуги" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Сотрудник">
+            <EntityTypeMapping TypeName="Var22Model.Сотрудник">
+              <MappingFragment StoreEntitySet="Сотрудник">
+                <ScalarProperty Name="ID_сотрудника" ColumnName="ID_сотрудника" />
+                <ScalarProperty Name="ФИО" ColumnName="ФИО" />
+                <ScalarProperty Name="ИНН" ColumnName="ИНН" />
+                <ScalarProperty Name="Паспорт" ColumnName="Паспорт" />
+                <ScalarProperty Name="Расчётный_счет" ColumnName="Расчётный_счет" />
+                <ScalarProperty Name="Должность" ColumnName="Должность" />
+                <ScalarProperty Name="Логин" ColumnName="Логин" />
+                <ScalarProperty Name="Паролб" ColumnName="Паролб" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Тип_помещения">
+            <EntityTypeMapping TypeName="Var22Model.Тип_помещения">
+              <MappingFragment StoreEntitySet="Тип_помещения">
+                <ScalarProperty Name="ID_тип_помещения" ColumnName="ID_тип_помещения" />
+                <ScalarProperty Name="НАзвание" ColumnName="НАзвание" />
+                <ScalarProperty Name="Множитель" ColumnName="Множитель" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Тип_уборки">
+            <EntityTypeMapping TypeName="Var22Model.Тип_уборки">
+              <MappingFragment StoreEntitySet="Тип_уборки">
+                <ScalarProperty Name="ID_тип" ColumnName="ID_тип" />
+                <ScalarProperty Name="Название" ColumnName="Название" />
+                <ScalarProperty Name="Стоимость" ColumnName="Стоимость" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
